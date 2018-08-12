@@ -1,12 +1,19 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
+import async from './middlewares/async';
 
-export default (props) => {
+export default ({ children, initialState = {} }) => {
+	const store = createStore(
+		reducers,
+		initialState,
+		applyMiddleware(async)
+	);
+
 	return (
-		<Provider store={createStore(reducers, {})}>
-			{props.children}
+		<Provider store={store}>
+			{children}
 		</Provider>
 	);
 };

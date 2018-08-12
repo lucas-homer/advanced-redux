@@ -6,13 +6,11 @@ import * as actions from '../actions';
 class CommentBox extends Component {
 	state = { comment: '' };
 
-	
-
-	handleChange(event) {
+	handleChange = (event) => {
 		this.setState({ comment: event.target.value });
 	}
 
-	handleSubmit(event) {
+	handleSubmit = (event) => {
 		event.preventDefault();
 
 		this.props.saveComment(this.state.comment);
@@ -22,16 +20,18 @@ class CommentBox extends Component {
 	render() {
 		return (
 			<div>
-				<form onSubmit={this.handleSubmit.bind(this)} className="comment-box">
+				<form onSubmit={this.handleSubmit} className="comment-box">
 					<h4>Add a comment</h4>
 					<textarea
 						value={this.state.comment}
-						onChange={this.handleChange.bind(this)} />
+						onChange={this.handleChange} />
 					<div>
 						<button action="submit">Submit Comment</button>
 					</div>				
 				</form>
-				
+				<button onClick={this.props.fetchComments}>
+					Fetch Comments 
+				</button>
 			</div>
 		);
 	}
